@@ -161,20 +161,16 @@ namespace clad {
       if (m_HasRuntime)
         return true;
 
-      ASTContext& C = m_CI.getASTContext();
-      // The plugin has a lot of different ways to be compiled: in-tree,
-      // out-of-tree and hybrid. When we pick up the wrong header files we
-      // usually see a problem with C.Idents not being properly initialized.
-      // This assert tries to catch such situations heuristically.
-      assert(&C.Idents == &m_CI.getPreprocessor().getIdentifierTable()
-             && "Miscompiled?");
-      DeclarationName Name = &C.Idents.get("clad");
-      Sema &SemaR = m_CI.getSema();
-      LookupResult R(SemaR, Name, SourceLocation(), Sema::LookupNamespaceName,
-                     Sema::ForRedeclaration);
-      SemaR.LookupQualifiedName(R, C.getTranslationUnitDecl(),
-                                /*allowBuiltinCreation*/ false);
-      m_HasRuntime = !R.empty();
+      if (!DGR.isSingleDecl())
+	return m_HasRuntime;
+
+      Decl *CladNSDCandidate = DGR.getSingleDecl();
+      if (!isa<NamespaceDecl>(CladNSDCandidate))
+	return m_HasRuntime;
+
+      if (cast<NamespaceDecl>(CladNSDCandidate)->getNameAsString() == "clad")
+	m_HasRuntime = true;
+
       return m_HasRuntime;
     }
 
