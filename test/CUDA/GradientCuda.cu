@@ -2,7 +2,7 @@
 // the device having all the dependencies also as device functions.
 
 // RUN: %cladclang_cuda -I%S/../../include  %s -fsyntax-only \
-// RUN:     --cuda-path=%cudapath  -Xclang -verify 2>&1 | FileCheck %s
+// RUN:     --cuda-path=%cudapath  -Xclang -verify 
 
 // R: %cladclang_cuda -I%S/../../include  -xc++  --cuda-path=%cudapath  \
 // R: -L/usr/local/cuda/lib64 -lcudart_static -ldl -lrt -pthread -lm -lstdc++ %s

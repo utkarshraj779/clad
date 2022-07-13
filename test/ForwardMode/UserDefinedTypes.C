@@ -1,4 +1,4 @@
-// RUN: %cladclang -lm -lstdc++ %s -I%S/../../include -oUserDefinedTypes.out | FileCheck %s
+// RUN: %cladclang -lm -lstdc++ %s -I%S/../../include -oUserDefinedTypes.out 
 // RUN: ./UserDefinedTypes.out | FileCheck -check-prefix=CHECK-EXEC %s
 
 // CHECK-NOT: {{.*error|warning|note:.*}}

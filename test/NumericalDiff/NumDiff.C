@@ -1,4 +1,4 @@
-// RUN: %cladnumdiffclang -lm -lstdc++ %s -I%S/../../include -oNumDiff.out 2>&1 | FileCheck -check-prefix=CHECK %s
+// RUN: %cladnumdiffclang -lm -lstdc++ %s -I%S/../../include -oNumDiff.out 2>&1 
 
 //CHECK-NOT: {{.*error|warning|note:.*}}
 
